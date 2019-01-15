@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "AddNewJob";
+}
+
+<h2>.</h2>
+<div class="col-md-12">
+    <div class="col-md-9">
+        <form class="form-horizontal" method="post" action="/Admin/AddNewJob">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Post New Job</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="JobTitle">Title</label>
+                    <div class="col-md-4">
+                        <input id="JobTitle" name="JobTitle" type="text" placeholder="Job title" class="form-control input-md" required="">
+                        <span class="help-block">Enter Job Title</span>
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="JobCategoryID">Job Category</label>
+                    <div class="col-md-4">
+                        <select id="JobCategoryID" name="JobCategoryID" class="form-control">
+                            <option value="1">Option one</option>
+                            <option value="2">Option two</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="ExpiryDate">Expiry Date</label>
+                    <div class="col-md-4">
+                        <input id="ExpiryDate" name="ExpiryDate" type="text" placeholder="Expiry Date" class="form-control input-md" required="">
+
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="JobDescription">Job Description</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" id="JobDescription" name="JobDescription"></textarea>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for=""></label>
+                    <div class="col-md-4">
+                        <button id="" name="" class="btn btn-primary">Post Job</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+</div>

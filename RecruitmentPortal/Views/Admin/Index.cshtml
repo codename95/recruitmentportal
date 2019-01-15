@@ -1,0 +1,60 @@
+﻿@model PagedList.IPagedList<RecruitmentPortal.Models.Entities.Job>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="col-md-12">
+    <div class="col-md-9">
+        <h2>All Job Postings</h2>
+        <hr />
+        <p><a href="/Admin/AddNewJob" class="pull-left btn-sm btn-primary">Add New Job</a></p><br /><br />
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    @Html.ActionLink("Job Title", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                </td>
+                <td>
+                    @Html.ActionLink("Expiry Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                </td>
+                <td>
+                    Job Category
+                </td>
+                <td>
+                    Views
+                </td>
+            </tr>
+            @foreach (var job in Model)
+            {
+                <tr>
+                    <td>
+                        @job.JobTitle
+                    </td>
+                    <td>
+                        @job.ExpiryDate
+                    </td>
+                    <td>
+                        @job.JobCategory.JobCategoryName
+                    </td>
+                    <td>
+                        @job.Views
+                    </td>
+                    <td>
+                        <a href="#" class="btn-sm">View</a>
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+    <div class="col-md-3">
+        <h3>Quicklinks Here...</h3>
+
+    </div>
+</div>
