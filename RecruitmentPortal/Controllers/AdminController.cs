@@ -10,8 +10,10 @@ using System.Web.Mvc;
 
 namespace RecruitmentPortal.Controllers
 {
+    [Authorize(Roles = "Super Admin")]
     public class AdminController : Controller
     {
+        
         private ApplicationDbContext _context;
         public AdminController()
         {

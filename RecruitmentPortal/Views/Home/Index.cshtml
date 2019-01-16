@@ -1,31 +1,75 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿
+@model PagedList.IPagedList<RecruitmentPortal.Models.Entities.Job>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
+@{
+    ViewBag.Title = "Index";
+}
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Recruitment Portal</h1>
+    <p class="lead">This portal is designed for educational purpose, You may extend the features for personal use or share Code as you wish.</p>
+    <p><a href="http://www.salemsky95.wordpress.com" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+
+
+<div class="col-md-12">
+    <div class="col-md-12">
+        <h2>All Job Postings</h2>
+        <hr />
+        <p><a href="/Admin/AddNewJob" class="pull-left btn-sm btn-primary">Add New Job</a></p><br /><br />
+        @using (Html.BeginForm("Index", "Admin", FormMethod.Get))
+        {
+            <p>
+                Search By Title: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                <input type="submit" value="Search" />
+            </p>
+        }
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    @Html.ActionLink("Job Title", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                </td>
+                <td>
+                    @Html.ActionLink("Expiry Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                </td>
+                <td>
+                    Job Category
+                </td>
+                <td>
+                    Views
+                </td>
+                <td>
+                    Action
+                </td>
+            </tr>
+            @foreach (var job in Model)
+            {
+                <tr>
+                    <td>
+                        @job.JobTitle
+                    </td>
+                    <td>
+                        @job.ExpiryDate
+                    </td>
+                    <td>
+                        @job.JobCategory.JobCategoryName
+                    </td>
+                    <td>
+                        @job.Views
+                    </td>
+                    <td>
+                        <a href="/Home/Apply/@job.JobID" class="btn-sm">View</a>
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+   
 </div>
